@@ -32,6 +32,7 @@ module.exports = {
         loader: "babel-loader",
         options: {
           cacheDirectory: true,
+          plugins: [["import", { libraryName: "antd", style: true }]],
         },
         include: /src/,
       },
