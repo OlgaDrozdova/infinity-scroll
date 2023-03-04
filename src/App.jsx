@@ -16,6 +16,7 @@ const HeaderStyles = styled(Header)`
 const ContentStyles = styled(Content)`
   min-height: 100%;
   padding-top: 70px;
+  columns: 3;
 `;
 
 const FooterStyles = styled(Footer)`
