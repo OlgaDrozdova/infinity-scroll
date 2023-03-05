@@ -5,12 +5,11 @@ import { getUser } from './api/getUser';
 
 const Container = styled.div`
   margin-bottom: 20px;
-  break-inside: avoid;
 `;
 
 const UsersList = () => {
   const [users, setUsers] = useState([]);
-  const [countUsers, setCountUsers] = useState(1);
+  const [countPage, setCountPage] = useState(1);
   const [lastUser, setLastUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -18,16 +17,24 @@ const UsersList = () => {
     new IntersectionObserver((entries) => {
       const first = entries[0];
       if (first.isIntersecting) {
-        setCountUsers((count) => count + 1);
+        setCountPage((count) => count + 1);
       }
     })
   );
 
   useEffect(() => {
-    if (countUsers <= 15) {
-      getUser(setUsers, setLoading);
+    if (countPage) {
+      getUser(countPage, setLoading)
+        .then((response) => {
+          const allUsers = new Set([...users, ...response.results]);
+          setUsers([...allUsers]);
+          setLoading(false);
+        })
+        .catch((err) => {
+          alert('Произошла ошибка ' + err);
+        });
     }
-  }, [countUsers]);
+  }, [countPage]);
 
   useEffect(() => {
     const currentElement = lastUser;
@@ -46,26 +53,11 @@ const UsersList = () => {
 
   return (
     <>
-        {users.results &&
-          users.results.map((item, index) => {
-            if (
-              index + 1 === users.results.length &&
-              countUsers <= 15 &&
-              !loading
-            ) {
-              return (
-                <Container key={index} ref={setLastUser}>
-                  <UserItem
-                    key={index}
-                    name={item.name}
-                    picture={item.picture}
-                    email={item.email}
-                  />
-                </Container>
-              );
-            }
+      {users.length > 0 &&
+        users.map((item, index) => {
+          if (index + 1 === users.length && !loading) {
             return (
-              <Container key={index}>
+              <Container key={index} ref={setLastUser}>
                 <UserItem
                   key={index}
                   name={item.name}
@@ -74,7 +66,18 @@ const UsersList = () => {
                 />
               </Container>
             );
-          })}
+          }
+          return (
+            <Container key={index}>
+              <UserItem
+                key={index}
+                name={item.name}
+                picture={item.picture}
+                email={item.email}
+              />
+            </Container>
+          );
+        })}
       {loading && <div>loading...</div>}
     </>
   );

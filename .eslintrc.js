@@ -4,14 +4,18 @@ module.exports = {
     node: true,
     jest: true,
   },
-  extends: ["plugin:react/recommended", "google", "prettier"],
+  extends: ['plugin:react/recommended', 'google', 'prettier'],
   overrides: [],
   parserOptions: {
-    ecmaVersion: "latest",
-    sourceType: "module",
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+    ecmaFeatures: {
+      jsx: true,
+    },
   },
-  plugins: ["react", "react-hooks"],
+  plugins: ['react', 'react-hooks', 'import'],
   rules: {
-    camelcase: "warn",
+    'no-var': 'warn',
+    camelcase: 'warn',
   },
 };

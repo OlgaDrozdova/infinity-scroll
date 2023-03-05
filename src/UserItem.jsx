@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { memo } from 'react';
 import styled from 'styled-components';
 import { Card } from 'antd';
 
@@ -7,10 +7,10 @@ const { Meta } = Card;
 const CardStyles = styled(Card)`
   margin-left: auto;
   margin-right: auto;
-  width: 70%;
+  width: 30%;
 `;
 
-const UserItem = forwardRef((props,ref) => {
+const UserItem = memo((props) => {
   const fullName = `${props.name.title} ${props.name.last} ${props.name.first}`;
 
   const avatarNode = () => {
@@ -18,7 +18,7 @@ const UserItem = forwardRef((props,ref) => {
   };
 
   return (
-    <CardStyles hoverable cover={avatarNode()} ref={ref}>
+    <CardStyles hoverable cover={avatarNode()}>
       <Meta title={fullName} description={props.email} />
     </CardStyles>
   );
