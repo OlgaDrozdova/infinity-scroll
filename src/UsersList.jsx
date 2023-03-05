@@ -7,12 +7,20 @@ const Container = styled.div`
   margin-bottom: 20px;
 `;
 
+/**
+ * @type {React.FC<Props>}
+ * @return {React.ReactElement} - users list
+ * @description Container component for user's card
+ */
 const UsersList = () => {
   const [users, setUsers] = useState([]);
   const [countPage, setCountPage] = useState(1);
   const [lastUser, setLastUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  /**
+  * @description observer increase the page when last mapped user is displayed
+  */
   const observer = useRef(
       new IntersectionObserver((entries) => {
         const first = entries[0];
@@ -22,6 +30,9 @@ const UsersList = () => {
       }),
   );
 
+  /**
+  * @description call getUser when changing countPage
+  */
   useEffect(() => {
     if (countPage) {
       getUser(countPage, setLoading)
@@ -38,6 +49,9 @@ const UsersList = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [countPage]);
 
+  /**
+  * @description pass element to observer when changing lastUser
+  */
   useEffect(() => {
     const currentElement = lastUser;
     const currentObserver = observer.current;

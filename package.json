@@ -23,7 +23,8 @@
     "start": "webpack serve --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
     "lint": "eslint .",
-    "lint:fix": "eslint --fix --ext .js,.jsx ."
+    "lint:fix": "eslint --fix --ext .js,.jsx .",
+    "docs": "jsdoc -c jsdoc.conf.json"
   },
   "devDependencies": {
     "clean-webpack-plugin": "^4.0.0",

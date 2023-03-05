@@ -10,6 +10,12 @@ const CardStyles = styled(Card)`
   width: 30%;
 `;
 
+/**
+ * @type {React.FC<Props>}
+ * @return {React.ReactElement} - user card
+ * @description Component for showing card with details of the user
+ */
+
 const UserItem = memo((props) => {
   const fullName = `${props.name.title} ${props.name.last} ${props.name.first}`;
 
