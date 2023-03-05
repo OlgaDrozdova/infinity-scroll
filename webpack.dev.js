@@ -1,21 +1,19 @@
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
-  mode: "development",
-  entry: path.resolve("src", "index.js"),
+  mode: 'development',
+  entry: path.resolve('src', 'index.js'),
   output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "js/[name].[contenthash].bundle.js",
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'js/[name].[contenthash].bundle.js',
   },
   resolve: {
-    // alias: {
-    // },
-    modules: ["node_modules"],
-    extensions: [".jsx", ".js"],
+    modules: ['node_modules'],
+    extensions: ['.jsx', '.js'],
   },
-  devtool: "eval-cheap-module-source-map",
+  devtool: 'eval-cheap-module-source-map',
   devServer: {
     port: 3001,
     hot: true,
@@ -27,24 +25,24 @@ module.exports = {
     rules: [
       {
         test: /\.(js|jsx)$/,
-        loader: "babel-loader",
+        loader: 'babel-loader',
         options: {
           cacheDirectory: true,
-          plugins: [["import", { libraryName: "antd", style: true }]],
+          plugins: [['import', { libraryName: 'antd', style: true }]],
         },
         include: /src/,
       },
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"],
+        use: ['style-loader', 'css-loader'],
       },
     ],
   },
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      filename: "index.html",
-      template: "./public/index.html",
+      filename: 'index.html',
+      template: './public/index.html',
     }),
   ],
 };

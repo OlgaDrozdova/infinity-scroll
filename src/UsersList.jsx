@@ -14,26 +14,28 @@ const UsersList = () => {
   const [loading, setLoading] = useState(true);
 
   const observer = useRef(
-    new IntersectionObserver((entries) => {
-      const first = entries[0];
-      if (first.isIntersecting) {
-        setCountPage((count) => count + 1);
-      }
-    })
+      new IntersectionObserver((entries) => {
+        const first = entries[0];
+        if (first.isIntersecting) {
+          setCountPage((count) => count + 1);
+        }
+      }),
   );
 
   useEffect(() => {
     if (countPage) {
       getUser(countPage, setLoading)
-        .then((response) => {
-          const allUsers = new Set([...users, ...response.results]);
-          setUsers([...allUsers]);
-          setLoading(false);
-        })
-        .catch((err) => {
-          alert('Произошла ошибка ' + err);
-        });
+          .then((response) => {
+            const allUsers = new Set([...users, ...response.results]);
+            setLoading(false);
+            setUsers([...allUsers]);
+            return;
+          })
+          .catch((err) => {
+            alert('Произошла ошибка ' + err);
+          });
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [countPage]);
 
   useEffect(() => {

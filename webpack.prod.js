@@ -1,27 +1,25 @@
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
-  mode: "production",
-  entry: path.resolve("src", "index.js"),
+  mode: 'production',
+  entry: path.resolve('src', 'index.js'),
   output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "js/[name].[contenthash].bundle.js",
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'js/[name].[contenthash].bundle.js',
   },
   devtool: false,
   resolve: {
-    // alias: {
-    // },
-    modules: ["node_modules"],
-    extensions: [".jsx", ".js"],
+    modules: ['node_modules'],
+    extensions: ['.jsx', '.js'],
   },
   optimization: {
     minimize: true,
-    runtimeChunk: "single",
+    runtimeChunk: 'single',
   },
   performance: {
-    hints: "warning",
+    hints: 'warning',
     maxEntrypointSize: 512000,
     maxAssetSize: 512000,
   },
@@ -29,20 +27,24 @@ module.exports = {
     rules: [
       {
         test: /\.(js|jsx)$/,
-        loader: "babel-loader",
+        loader: 'babel-loader',
         options: {
           cacheDirectory: true,
-          plugins: [["import", { libraryName: "antd", style: true }]],
+          plugins: [['import', { libraryName: 'antd', style: true }]],
         },
         include: /src/,
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
       },
     ],
   },
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      filename: "index.html",
-      template: "./public/index.html",
+      filename: 'index.html',
+      template: './public/index.html',
     }),
   ],
 };

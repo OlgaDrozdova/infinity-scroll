@@ -24,4 +24,6 @@ const UserItem = memo((props) => {
   );
 });
 
+UserItem.displayName = 'UserItem';
+
 export default UserItem;
